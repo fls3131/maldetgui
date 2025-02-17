@@ -1,5 +1,5 @@
 maldet 1.0
-
+Maldet Scanner GUI\nVersion 1.0\nDeveloped by Fabio Schmit\nContact: hostmaster@bithostel.com.br\nWebsite: https://bithostel.com.br\n\nThis tool provides a graphical interface for Maldet, allowing users to scan directories easily.
 
 Python Version
 
