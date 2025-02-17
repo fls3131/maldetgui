@@ -1,4 +1,9 @@
-Maldet Scanner GUI\nVersion 1.0\nDeveloped by Fabio Schmit\nContact: hostmaster@bithostel.com.br\nWebsite: https://bithostel.com.br\n\nThis tool provides a graphical interface for Maldet, allowing users to scan directories easily.
+Maldet Scanner GUI Version 1.0 Developed by Fabio Schmit
+Contact: hostmaster@bithostel.com.br
+Website: https://bithostel.com.br
+
+This tool provides a graphical interface for Maldet, allowing users to scan directories easily.
+
 Python Version
 
 - Ensure you have Python 3.x installed (preferably 3.6 or higher) as tkinter support may vary.
