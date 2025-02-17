@@ -1,3 +1,4 @@
+<img src="https://github.com/fls3131/maldetgui/blob/main/mainwindow.png"/>
 Maldet Scanner GUI Version 1.0 Developed by Fabio Schmit
 Contact: hostmaster@bithostel.com.br
 Website: https://bithostel.com.br
