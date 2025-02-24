@@ -127,8 +127,11 @@ class MaldetGUI:
         self.process.stdin.write(self.sudo_password + "\n")
         self.process.stdin.flush()
 
+        virus_found = False  # Variable to track if any threats are found
         for line in iter(self.process.stdout.readline, ""):
             self.queue.put(line)
+            if "Threat" in line or "Infected" in line:  # Check for indications of threats
+                virus_found = True  # Set to True if any threats are found
             if not self.running:
                 break
         self.process.stdout.close()
@@ -140,6 +143,12 @@ class MaldetGUI:
         self.running = False
         self.root.after(0, self.reset_buttons)
 
+        # Show a message box at the end of the scan
+        if virus_found:
+            messagebox.showinfo("Scan Result", "Virus found during the scan!")
+        else:
+            messagebox.showinfo("Scan Result", "No viruses found during the scan.")
+    
     def stop_scan(self):
         if self.process and self.running:
             os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
