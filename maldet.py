@@ -10,7 +10,7 @@ import signal
 class MaldetGUI:
     def __init__(self, root):
         self.root = root
-        self.root.title("Maldet Scanner GUI")
+        self.root.title("Maldet Scanner GUI 1.1")
         self.root.configure(bg="#2E2E2E")
 
         # Set dark theme colors
@@ -56,6 +56,9 @@ class MaldetGUI:
         self.save_btn = tk.Button(self.button_frame, text="Save Output", command=self.save_output, state=tk.DISABLED, bg=self.btn_bg, fg=self.btn_fg)
         self.save_btn.grid(row=0, column=2, padx=5)
 
+        self.units_btn = tk.Button(root, text="Disks and Partitions", command=self.show_partitions, bg=self.btn_bg, fg=self.btn_fg)
+        self.units_btn.pack(pady=5)
+
         self.progress = ttk.Progressbar(root, orient=tk.HORIZONTAL, length=400, mode='indeterminate')
 
         self.output_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=80, height=20, bg=self.text_bg, fg=self.text_fg, insertbackground=self.fg_color)
@@ -65,7 +68,7 @@ class MaldetGUI:
         self.running = False
         self.process = None
         self.scan_stopped = False
-
+        
         self.root.after(100, self.process_queue)
 
     def browse_directory(self):
@@ -78,8 +81,31 @@ class MaldetGUI:
         about_window = tk.Toplevel(self.root)
         about_window.title("About Software")
         about_window.configure(bg=self.bg_color)
-        about_text = "Maldet Scanner GUI\nVersion 1.0\nDeveloped by Fabio Schmit\nContact: hostmaster@bithostel.com.br\nWebsite: https://bithostel.com.br\n\nThis tool provides a graphical interface for Maldet, allowing users to scan directories easily."
+        about_text = "Maldet Scanner GUI\nVersion 1.1\nDeveloped by Fabio Schmit\nContact: hostmaster@bithostel.com.br\nWebsite: https://bithostel.com.br\n\nThis tool provides a graphical interface for Maldet, allowing users to scan directories easily."
         tk.Label(about_window, text=about_text, padx=20, pady=20, justify=tk.LEFT, bg=self.bg_color, fg=self.fg_color).pack()
+
+    def show_partitions(self):
+        # Create a new window for partitions
+        self.partitions_window = tk.Toplevel(self.root)
+        self.partitions_window.title("Disks and Partitions")
+        self.partitions_window.configure(bg=self.bg_color)
+
+        # Get partitions and create buttons
+        partitions = self.get_partitions()
+        
+        for i, partition in enumerate(partitions):
+            partition_button = tk.Button(self.partitions_window, text=f"Scan {partition}", command=lambda p=partition: self.start_scan_directory(p), bg=self.btn_bg, fg=self.btn_fg)
+            partition_button.pack(pady=5)
+
+    def get_partitions(self):
+        # Get mounted partitions using lsblk
+        result = subprocess.run(['lsblk', '-p', '-n', '-o', 'MOUNTPOINT'], stdout=subprocess.PIPE, text=True)
+        return [line.strip() for line in result.stdout.splitlines() if line]
+
+    def start_scan_directory(self, directory):
+        self.dir_entry.delete(0, tk.END)
+        self.dir_entry.insert(0, directory)
+        self.start_scan()
 
     def start_scan(self):
         directory = self.dir_entry.get().strip()
