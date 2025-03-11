@@ -1,4 +1,4 @@
-<h1>Maldet Scanner GUI Version 1.0</h1> Developed by Fabio Schmit
+<h1>Maldet Scanner GUI Version 1.1</h1> Developed by Fabio Schmit
 <h2>Contact: hostmaster@bithostel.com.br</h2>
 <h2>Website: https://bithostel.com.br</h2>
 <h1>This tool provides a graphical interface for Maldet, allowing users to scan directories easily.</h1>
@@ -76,3 +76,6 @@ bash
 Note
 
 Make sure to test the GUI thoroughly to ensure that all functionalities such as scanning, stopping scans, and saving output work as expected. If you encounter issues with tkinter, consider checking your Python installation or environment setup.
+
+
+1.1 - ADD result of scan
